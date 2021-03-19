@@ -19,8 +19,8 @@ export default async (
   const [, token] = authorization.split(" ");
 
   try {
-    const data = jwt.verify(token, process.env.TOKEN_SECRET);
-    const { id, email } = data;
+    const data = jwt.verify(token, process.env.TOKEN_SECRET || "");
+    const { id, email } = data as any;
 
     const usersRepository = getRepository(User);
 

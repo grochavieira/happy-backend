@@ -73,7 +73,7 @@ export default {
       whatsapp,
       is_accepted: false,
       images,
-    };
+    } as any;
 
     const schema = Yup.object().shape({
       name: Yup.string().required(),
@@ -130,7 +130,7 @@ export default {
     const imagesToDelete = orphanage.images.filter(
       ({ public_id: firstId }) =>
         !parsedSavedImages.some(
-          ({ public_id: secondId }) => secondId === firstId
+          ({ public_id: secondId }: any) => secondId === firstId
         )
     );
 
@@ -183,7 +183,7 @@ export default {
     });
 
     if (images.length > 0) {
-      images = images.map((image) => {
+      images = images.map((image: any) => {
         return {
           url: image.url,
           public_id: image.public_id,
@@ -193,7 +193,7 @@ export default {
         };
       });
 
-      const newImages = imagesRepository.create(images);
+      const newImages = imagesRepository.create(images as any);
       await imagesRepository.save(newImages);
     }
 
