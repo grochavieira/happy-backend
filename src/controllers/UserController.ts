@@ -107,8 +107,8 @@ export default {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: "grochavieira.sender.dev@gmail.com",
-        pass: "grochavieira1234",
+        user: process.env.EMAIL_USERNAME,
+        pass: process.env.EMAIL_PASSWORD,
       },
     });
 
@@ -125,7 +125,7 @@ export default {
     transporter.use("compile", handlebars(handlebarOptions));
 
     const mailOptions = {
-      from: "Admnistrador do Happy <grochavieira.dev@gmail.com>",
+      from: `Admnistrador do Happy <process.env.EMAIL_USERNAME>`,
       to: email,
       subject: "Resetar Senha - Happy",
       template: "index",
