@@ -1,15 +1,15 @@
-import User from "../models/User";
+import User, { IUser } from "../models/User";
 
 export default {
-  render(user: User) {
+  render(user: IUser) {
     return {
-      id: user.id,
+      id: user._id,
       name: user.name,
       email: user.email,
     };
   },
 
-  renderMany(users: User[]) {
+  renderMany(users: IUser[]) {
     return users.map((user) => this.render(user));
   },
 };
