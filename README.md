@@ -51,9 +51,9 @@ Uma API para cadastrar orfanatos de São Bernardo do Campo (SP), para que usuár
     - [x] Cadastro de orfanatos;
     - [x] Listagem de orfanatos;
     - [x] Detalhes de um orfanato;
-    - [x] Inserção de imagens com cloudinary no cadastro de orfanatos;
-    - [x] Deletar um orfanato e suas imagens no cloudinary;
-    - [x] Editar um orfanato.
+    - [x] Inserção de imagens no cadastro de orfanatos;
+    - [x] Deletar orfanato;
+    - [x] Editar orfanato.
   - [x] Rotas de Usuário:
     - [x] Cadastro de usuário;
     - [x] Listagem de usuários;
@@ -61,6 +61,9 @@ Uma API para cadastrar orfanatos de São Bernardo do Campo (SP), para que usuár
     - [x] Atualização de senha;
     - [x] Envio de email para troca de senha;
     - [x] Autentificação de rotas por jwt;
+  - [x] Cloudinary foi utilizado para armazenar e deletar imagens;
+  - [x] Nodemailer foi usado para enviar emails;
+  - [x] Typeorm SQLite foi trocado por MongoDB;
 
 ---
 
@@ -108,13 +111,16 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 #### **Server** ([NodeJS](https://nodejs.org/en/) + [TypeScript](https://www.typescriptlang.org/))
 
-- **[Express](https://expressjs.com/)**
+- **[express](https://expressjs.com/)**
 - **[CORS](https://expressjs.com/en/resources/middleware/cors.html)**
 - **[ts-node](https://github.com/TypeStrong/ts-node)**
-- **[Multer](https://github.com/expressjs/multer)**
-- **[Yup](https://github.com/jquense/yup)**
-- **[Nodemailer](https://nodemailer.com/about/)**
-- **[Cloudinary](https://cloudinary.com/)**
+- **[multer](https://github.com/expressjs/multer)**
+- **[yup](https://github.com/jquense/yup)**
+- **[nodemailer](https://nodemailer.com/about/)**
+- **[cloudinary](https://cloudinary.com/)**
+- **[image-data-uri](https://www.npmjs.com/package/image-data-uri)**
+- **[jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)**
+- **[mongoose](https://mongoosejs.com/)**
 
 > Veja o arquivo [package.json](https://github.com/grochavieira/happy-backend/blob/master/package.json)
 
