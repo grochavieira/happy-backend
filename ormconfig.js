@@ -10,12 +10,4 @@ module.exports = {
   cli: {
     migrationsDir: process.env.TYPEORM_MIGRATIONS_DIR,
   },
-  prod: {
-    addIfNotExists: {
-      sslMode: "require",
-    },
-  },
-  extra: {
-    ssl: true,
-  },
 };
