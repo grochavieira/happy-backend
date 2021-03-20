@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { getRepository } from "typeorm";
 import User from "../models/User";
 import jwt from "jsonwebtoken";
 import bcryptjs from "bcryptjs";
@@ -16,9 +15,7 @@ export default {
       });
     }
 
-    const usersRepository = getRepository(User);
-
-    const user = await usersRepository.findOne({ email });
+    const user: any = await User.findOne({ email });
 
     if (!user) {
       return response.json({

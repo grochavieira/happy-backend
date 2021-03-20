@@ -1,22 +1,19 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import mongoose from "mongoose";
 
-@Entity("users")
-export default class User {
-  @PrimaryGeneratedColumn("increment")
-  id: number;
-
-  @Column()
+export interface IUser {
   name: string;
-
-  @Column()
   email: string;
-
-  @Column()
   password: string;
-
-  @Column()
   password_reset_token: string;
-
-  @Column()
   password_reset_expires: string;
 }
+
+const UserSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  password: { type: String, required: true },
+  password_reset_token: { type: String, required: false },
+  password_reset_expires: { type: String, required: false },
+});
+
+export default mongoose.model("User", UserSchema);

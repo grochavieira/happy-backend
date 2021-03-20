@@ -1,45 +1,40 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  OneToMany,
-  JoinColumn,
-} from "typeorm";
-import Image from "./Image";
+import mongoose from "mongoose";
 
-@Entity("orphanages")
-export default class Orphanage {
-  @PrimaryGeneratedColumn("increment")
-  id: number;
-
-  @Column()
-  name: string;
-
-  @Column()
-  latitude: number;
-
-  @Column()
-  longitude: number;
-
-  @Column()
-  about: string;
-
-  @Column()
-  instructions: string;
-
-  @Column()
-  opening_hours: string;
-
-  @Column()
-  open_on_weekends: boolean;
-
-  @Column()
-  is_accepted: boolean;
-
-  @Column()
-  whatsapp: string;
-
-  @OneToMany(() => Image, (image) => image.orphanage, { cascade: true }) // tipo de retorno, qual o campo do objeto que retorna o relacionamento inverso, e o cadastro automático das images
-  @JoinColumn({ name: "orphanage_id" }) // nome da coluna que armazena o relacionamento
-  images: Image[];
+export interface IImage {
+  public_id: string;
+  url: string;
 }
+
+export interface IOrphanage {
+  _id: string;
+  name: string;
+  latitude: string;
+  longitude: string;
+  about: string;
+  instructions: string;
+  opening_hours: string;
+  open_on_weekends: boolean;
+  is_accepted: boolean;
+  whatsapp: string;
+  images: IImage[];
+}
+
+const OrphanageSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  latitude: { type: String, required: true },
+  longitude: { type: String, required: true },
+  about: { type: String, required: true },
+  instructions: { type: String, required: true },
+  opening_hours: { type: String, required: true },
+  open_on_weekends: { type: Boolean, required: true },
+  is_accepted: { type: Boolean, required: true },
+  whatsapp: { type: String, required: true },
+  images: [
+    {
+      public_id: { type: String, required: true },
+      url: { type: String, required: true },
+    },
+  ],
+});
+
+export default mongoose.model("Orphanage", OrphanageSchema);

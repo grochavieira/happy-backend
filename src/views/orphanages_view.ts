@@ -1,10 +1,8 @@
-import Orphanage from "../models/Orphanage";
-import imagesView from "./images_view";
-
+import Orphanage, { IOrphanage } from "../models/Orphanage";
 export default {
-  render(orphanage: Orphanage) {
+  render(orphanage: IOrphanage) {
     return {
-      id: orphanage.id,
+      id: orphanage._id,
       name: orphanage.name,
       latitude: Number(orphanage.latitude),
       longitude: Number(orphanage.longitude),
@@ -14,11 +12,11 @@ export default {
       open_on_weekends: orphanage.open_on_weekends,
       whatsapp: orphanage.whatsapp,
       is_accepted: orphanage.is_accepted,
-      images: imagesView.renderMany(orphanage.images),
+      images: orphanage.images,
     };
   },
 
-  renderMany(orphanages: Orphanage[]) {
+  renderMany(orphanages: IOrphanage[]) {
     return orphanages.map((orphanage) => this.render(orphanage));
   },
 };

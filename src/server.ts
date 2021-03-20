@@ -3,9 +3,21 @@ import path from "path";
 import cors from "cors";
 import "dotenv/config";
 import "express-async-errors";
-import "./database/connection";
 import errorHandler from "./errors/handler";
 import routes from "./routes";
+import mongoose from "mongoose";
+
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  })
+  .then(() => {
+    console.log("Connected to database.");
+    app.emit("ready...");
+  })
+  .catch((e) => console.log(e));
 
 const app = express();
 

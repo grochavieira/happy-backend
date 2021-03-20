@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { getRepository } from "typeorm";
 import User from "../models/User";
 
 export default async (
@@ -22,9 +21,7 @@ export default async (
     const data = jwt.verify(token, process.env.TOKEN_SECRET || "");
     const { id, email } = data as any;
 
-    const usersRepository = getRepository(User);
-
-    const user = await usersRepository.findOne({ id, email });
+    const user = await User.findById(id);
 
     if (!user) {
       return response.status(401).json({

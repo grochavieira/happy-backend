@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
-import { getRepository } from "typeorm";
-import User from "../models/User";
+import User, { IUser } from "../models/User";
 import userView from "../views/user_view";
 import * as Yup from "yup";
 import bcryptjs from "bcryptjs";
@@ -11,18 +10,15 @@ import crypto from "crypto";
 
 export default {
   async index(request: Request, response: Response) {
-    const usersRepository = getRepository(User);
-
-    const users = await usersRepository.find();
+    const users = await User.find();
 
     return response.json(users);
   },
 
   async show(request: Request, response: Response) {
     const { id } = request.params;
-    const usersRepository = getRepository(User);
 
-    const user = await usersRepository.findOneOrFail(id);
+    const user = await User.findById(id);
 
     return response.json(userView.render(user));
   },
@@ -30,9 +26,7 @@ export default {
   async create(request: Request, response: Response) {
     const { name, email, password } = request.body;
 
-    const usersRepository = getRepository(User);
-
-    const userExist = await usersRepository.findOne({ email });
+    const userExist = await User.findOne({ email });
 
     if (userExist) {
       console.log(userExist);
@@ -57,9 +51,9 @@ export default {
       abortEarly: false,
     });
 
-    const user = usersRepository.create(data);
+    const newUser = new User(data);
 
-    await usersRepository.save(user);
+    const user = await newUser.save();
 
     return response
       .status(201)
@@ -69,12 +63,10 @@ export default {
   async delete(request: Request, response: Response) {
     const { id } = request.params;
 
-    const usersRepository = getRepository(User);
-
-    const user = await usersRepository.findOneOrFail(id);
+    const user = await User.findById(id);
 
     if (user) {
-      const response = await usersRepository.delete(id);
+      const response = await user.delete();
     }
 
     return response
@@ -84,10 +76,8 @@ export default {
 
   async forgotPassword(request: Request, response: Response) {
     const { email } = request.body;
-    const usersRepository = getRepository(User);
 
-    const user = await usersRepository.findOne({ email });
-
+    const user = await User.findOne({ email });
     if (!user) {
       return response.json({ error: "não existe usuário com este email!" });
     }
@@ -97,11 +87,10 @@ export default {
     const now = new Date();
     now.setHours(now.getHours() + 1);
 
-    const newUser = await usersRepository.update(user.id, {
+    const newUser = await user.update({
       password_reset_token: token,
       password_reset_expires: now.toString(),
     });
-
     console.log(newUser);
 
     const transporter = nodemailer.createTransport({
@@ -111,6 +100,7 @@ export default {
         pass: process.env.EMAIL_PASSWORD,
       },
     });
+    console.log(process.env.EMAIL_USERNAME);
 
     const handlebarOptions = {
       viewEngine: {
@@ -125,7 +115,7 @@ export default {
     transporter.use("compile", handlebars(handlebarOptions));
 
     const mailOptions = {
-      from: `Admnistrador do Happy <process.env.EMAIL_USERNAME>`,
+      from: `Admnistrador do Happy <${process.env.EMAIL_USERNAME}>`,
       to: email,
       subject: "Resetar Senha - Happy",
       template: "index",
@@ -145,16 +135,15 @@ export default {
 
   async resetPassword(request: Request, response: Response) {
     const { email, token, password } = request.body;
-    const usersRepository = getRepository(User);
 
-    const user = await usersRepository.findOne({ email });
+    const user: IUser[] | any = await User.findOne({ email });
 
     if (!user) {
       return response.json({ error: "não existe usuário com este email!" });
     }
 
     if (user.password_reset_token && user.password_reset_token === token) {
-      const newUser = await usersRepository.update(user.id, {
+      const newUser = await user.update({
         password: await bcryptjs.hash(password, 8),
       });
 
