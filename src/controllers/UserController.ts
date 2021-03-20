@@ -53,7 +53,7 @@ export default {
 
     const newUser = new User(data);
 
-    const user = await newUser.save();
+    await newUser.save();
 
     return response
       .status(201)
@@ -66,7 +66,7 @@ export default {
     const user = await User.findById(id);
 
     if (user) {
-      const response = await user.delete();
+      await user.delete();
     }
 
     return response
@@ -100,7 +100,6 @@ export default {
         pass: process.env.EMAIL_PASSWORD,
       },
     });
-    console.log(process.env.EMAIL_USERNAME);
 
     const handlebarOptions = {
       viewEngine: {

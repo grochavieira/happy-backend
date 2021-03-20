@@ -26,7 +26,7 @@ export default {
     const isPasswordValid = await bcryptjs.compare(password, user.password);
 
     if (!isPasswordValid) {
-      return response.status(401).json({
+      return response.json({
         error: "senha inválida",
       });
     }
