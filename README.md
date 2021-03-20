@@ -47,13 +47,20 @@ Uma API para cadastrar orfanatos de São Bernardo do Campo (SP), para que usuár
 ## ⚙️ Funcionalidades
 
 - [x] Back-end;
-  - [x] Rotas;
+  - [x] Rotas de Orfanato;
     - [x] Cadastro de orfanatos;
     - [x] Listagem de orfanatos;
     - [x] Detalhes de um orfanato;
-    - [x] Inserção de imagens no cadastro de orfanatos.
-
-### A milha extra...
+    - [x] Inserção de imagens com cloudinary no cadastro de orfanatos;
+    - [x] Deletar um orfanato e suas imagens no cloudinary;
+    - [x] Editar um orfanato.
+  - [x] Rotas de Usuário:
+    - [x] Cadastro de usuário;
+    - [x] Listagem de usuários;
+    - [x] Detalhes de um usuário;
+    - [x] Atualização de senha;
+    - [x] Envio de email para troca de senha;
+    - [x] Autentificação de rotas por jwt;
 
 ---
 
@@ -103,13 +110,13 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 - **[Express](https://expressjs.com/)**
 - **[CORS](https://expressjs.com/en/resources/middleware/cors.html)**
-- **[TypeORM](https://typeorm.io/#/)**
-- **[SQLite](https://github.com/mapbox/node-sqlite3)**
 - **[ts-node](https://github.com/TypeStrong/ts-node)**
 - **[Multer](https://github.com/expressjs/multer)**
 - **[Yup](https://github.com/jquense/yup)**
+- **[Nodemailer](https://nodemailer.com/about/)**
+- **[Cloudinary](https://cloudinary.com/)**
 
-> Veja o arquivo [package.json](https://github.com/grochavieira/happy/blob/master/backend/package.json)
+> Veja o arquivo [package.json](https://github.com/grochavieira/happy-backend/blob/master/package.json)
 
 #### **Utilitários**
 
