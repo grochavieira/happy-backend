@@ -137,14 +137,14 @@ export default {
   async resetPassword(request: Request, response: Response) {
     const { email, token, password } = request.body;
 
-    const user: IUser[] | any = await User.findOne({ email });
+    const user: IUser | any = await User.findOne({ email });
 
     if (!user) {
       return response.json({ error: "não existe usuário com este email!" });
     }
 
     if (user.password_reset_token && user.password_reset_token === token) {
-      const newUser = await user.update({
+      await user.update({
         password: await bcryptjs.hash(password, 8),
       });
 
