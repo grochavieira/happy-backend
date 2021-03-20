@@ -143,7 +143,10 @@ export default {
       return response.json({ error: "não existe usuário com este email!" });
     }
 
-    if (user.password_reset_token && user.password_reset_token === token) {
+    if (
+      user.password_reset_token !== "" &&
+      user.password_reset_token === token
+    ) {
       await user.update({
         password: await bcryptjs.hash(password, 8),
       });
