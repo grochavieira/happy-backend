@@ -129,6 +129,8 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - Editor: **[Visual Studio Code](https://code.visualstudio.com/)**
 - Teste do Banco de Dados: **[Beekeper-Studio](https://www.beekeeperstudio.io/)**
 - Teste de API: **[Insomnia](https://insomnia.rest/)**
+- Banco de Dados: **[MongoDB](https://www.mongodb.com/)**
+- Serviço para Armazenar Imagens: **[Cloudinary](https://cloudinary.com/)**
 
 ---
 
