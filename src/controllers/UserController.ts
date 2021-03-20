@@ -129,7 +129,7 @@ export default {
       .catch((err) => {
         console.log(err);
         return response.json({
-          error: "não foi possível enviar o email! " + err,
+          error: "não foi possível enviar o email!",
         });
       });
   },
